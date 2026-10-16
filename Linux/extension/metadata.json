@@ -1,0 +1,7 @@
+{
+  "uuid": "quotamonitor@hegstad.no",
+  "name": "QuotaMonitor",
+  "description": "Read-only Work/Codex quota monitor with a desktop card and top-bar indicator. Refreshes every 120 seconds using the local Codex app-server.",
+  "shell-version": ["46"],
+  "version-name": "1.0.1"
+}

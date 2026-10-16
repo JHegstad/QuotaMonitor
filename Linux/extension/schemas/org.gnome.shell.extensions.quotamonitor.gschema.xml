@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.quotamonitor" path="/org/gnome/shell/extensions/quotamonitor/">
+    <key name="show-desktop" type="b">
+      <default>true</default>
+      <summary>Show the quota card on the desktop</summary>
+    </key>
+    <key name="desktop-corner" type="s">
+      <choices>
+        <choice value="top-right"/>
+        <choice value="top-left"/>
+        <choice value="bottom-right"/>
+        <choice value="bottom-left"/>
+      </choices>
+      <default>'top-right'</default>
+      <summary>Corner of the primary monitor used for the desktop card</summary>
+    </key>
+  </schema>
+</schemalist>

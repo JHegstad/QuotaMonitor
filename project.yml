@@ -1,0 +1,61 @@
+name: QuotaMonitor
+options:
+  bundleIdPrefix: no.joachim
+settings:
+  base:
+    MACOSX_DEPLOYMENT_TARGET: '14.0'
+    SWIFT_VERSION: '5.0'
+    MARKETING_VERSION: '1.0'
+    CURRENT_PROJECT_VERSION: '1'
+schemes:
+  QuotaMonitor:
+    build:
+      targets:
+        QuotaMonitor: all
+    run:
+      config: Debug
+      executable: QuotaMonitor
+    management:
+      shared: true
+      orderHint: 0
+  # Keep existing selections usable, but launch the containing app to test the
+  # desktop widget rather than macOS's failing WidgetKit Simulator host.
+  QuotaWidget:
+    build:
+      targets:
+        QuotaMonitor: all
+    run:
+      config: Debug
+      executable: QuotaMonitor
+    management:
+      shared: true
+      orderHint: 1
+targets:
+  QuotaMonitor:
+    type: application
+    platform: macOS
+    sources:
+      - App
+      - Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: no.joachim.QuotaMonitor
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_LSUIElement: YES
+        CODE_SIGN_ENTITLEMENTS: App/App.entitlements
+    dependencies:
+      - target: QuotaWidget
+  QuotaWidget:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: Widget
+        excludes:
+          - Info.plist
+      - Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: no.joachim.QuotaMonitor.Widget
+        GENERATE_INFOPLIST_FILE: NO
+        INFOPLIST_FILE: Widget/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Widget/Widget.entitlements

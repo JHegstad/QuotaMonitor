@@ -1,0 +1,26 @@
+.qm-card {
+    background-color: rgba(30, 32, 38, 0.96);
+    color: #f5f5f5;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    padding: 18px;
+    spacing: 12px;
+    width: 324px;
+    font-size: 13px;
+}
+
+.qm-title { font-weight: bold; font-size: 12px; color: #d7dce4; }
+.qm-row { spacing: 5px; }
+.qm-row-title { font-weight: bold; }
+.qm-percent { font-weight: bold; }
+.qm-detail { font-size: 11px; color: #c2c8d2; }
+.qm-message { color: #f4cd79; }
+.qm-track { height: 6px; background-color: #4a4f59; border-radius: 3px; }
+.qm-fill { height: 6px; border-radius: 3px; }
+.qm-green { background-color: #53c77a; }
+.qm-yellow { background-color: #f2c94c; }
+.qm-red { background-color: #ef6b70; }
+.qm-unknown { background-color: #8b929f; }
+.qm-refresh { padding: 8px 12px; border-radius: 8px; background-color: #454b57; color: #ffffff; }
+.qm-refresh:hover, .qm-refresh:focus { background-color: #596171; }
+.qm-refresh:active { background-color: #343a45; }

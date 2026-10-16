@@ -1,0 +1,36 @@
+# Generated application builds and local distribution packages
+/build/
+/DerivedData/
+*.app/
+*.appex/
+*.dSYM/
+*.xcarchive/
+/Linux/QuotaMonitor-GNOME46.zip
+
+# Xcode user-specific state; keep the project and shared launch schemes
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# Generated Python and GNOME files
+__pycache__/
+*.py[cod]
+gschemas.compiled
+.venv/
+
+# Local diagnostics and screenshots
+.DS_Store
+*.log
+/Linux/Screenshot*.png
+/Linux/Screenshot*.jpg
+
+# Local environment/credential files do not belong in the source repository
+.env
+.env.*
+!.env.example
+.codex/
+.aws/
+*.p12
+*.pfx
+*.mobileprovision
