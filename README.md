@@ -10,6 +10,16 @@ Both versions read quota through the locally signed-in Codex CLI using
 start model turns, parse authentication files, scrape ChatGPT, or purchase credits.
 Each computer monitors the Codex account signed in on that computer.
 
+## Widget previews
+
+| macOS desktop widget | Ubuntu / GNOME desktop widget |
+| --- | --- |
+| <img src="docs/images/macos-widget.png" alt="macOS QuotaMonitor widget showing five-hour and weekly quotas" width="420"> | <img src="docs/images/linux-widget.png" alt="QuotaMonitor running on Ubuntu GNOME with a Work percentage in the top bar" width="420"> |
+
+The macOS preview is rendered from the widget source using example values. The
+Linux image is an actual Ubuntu 24.04 / GNOME Shell 46 screenshot. Quota values
+and reset dates vary with your account. See [image sources](docs/images/README.md).
+
 ## Features
 
 - Remaining percentages for the 5-hour (300-minute) and weekly (10080-minute) windows.
