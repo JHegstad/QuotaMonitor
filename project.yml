@@ -7,6 +7,10 @@ settings:
     SWIFT_VERSION: '5.0'
     MARKETING_VERSION: '1.0'
     CURRENT_PROJECT_VERSION: '1'
+    DEVELOPMENT_TEAM: QRV2VJGW67
+    CODE_SIGN_IDENTITY: Apple Development
+    CODE_SIGN_STYLE: Automatic
+    REGISTER_APP_GROUPS: YES
 schemes:
   QuotaMonitor:
     build:
@@ -35,13 +39,16 @@ targets:
     type: application
     platform: macOS
     sources:
-      - App
+      - path: App
+        excludes:
+          - Info.plist
       - Shared
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: no.joachim.QuotaMonitor
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_LSUIElement: YES
+        INFOPLIST_FILE: App/Info.plist
         CODE_SIGN_ENTITLEMENTS: App/App.entitlements
     dependencies:
       - target: QuotaWidget

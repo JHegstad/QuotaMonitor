@@ -9,6 +9,8 @@ import WidgetKit
     private var timer: Timer?
 
     init() {
+        QuotaData.migrateLegacyData()
+        quota = QuotaData.load()
         refresh()
         timer = Timer.scheduledTimer(withTimeInterval: 120, repeats: true) { [weak self] _ in
             Task { @MainActor in self?.refresh() }

@@ -54,9 +54,23 @@ the Applications copy. Edit source files here, not in Xcode's DerivedData folder
 The app includes **Avslutt QuotaMonitor** to quit its menu-bar instance.
 
 The main app starts the local Codex executable, so App Sandbox is disabled for the
-main app; the widget remains sandboxed. This is a local-development configuration,
-not a notarized/App Store distribution setup. If Xcode requests signing settings,
-configure the appropriate team for both targets.
+main app; the widget remains sandboxed. Both targets use automatic **Apple
+Development** signing with team `QRV2VJGW67`. Ad hoc signing (**Sign to Run
+Locally**) can build the binaries but does not establish the team identity needed
+for reliable shared-container access. This is a local-development configuration,
+not a notarized/App Store distribution setup.
+
+If Xcode reports a signing error, select the same development team for both
+targets in **Signing & Capabilities**, with **Automatically manage signing**
+enabled. Allow Xcode to obtain profiles if needed. The shared group uses the
+macOS team-qualified identifier `$(TeamIdentifierPrefix)no.hegstad.quotamonitor`;
+both Info.plists and entitlements resolve it from the signing team. The main app
+migrates a saved quota from the earlier `group.no.hegstad.quotamonitor` suite on
+first launch, without replacing an existing quota in the new suite.
+
+After changing signing or the App Group, quit the old app and run the rebuilt
+**QuotaMonitor** app. Remove the old desktop widget and add **ChatGPT kvoter**
+again so WidgetKit uses the rebuilt extension, then refresh from the menu bar.
 
 Preserve these working identifiers and widget registration:
 
@@ -64,7 +78,7 @@ Preserve these working identifiers and widget registration:
 | --- | --- |
 | Main app bundle ID | `no.joachim.QuotaMonitor` |
 | Widget bundle ID | `no.joachim.QuotaMonitor.Widget` |
-| Shared App Group | `group.no.hegstad.quotamonitor` |
+| Shared App Group | `QRV2VJGW67.no.hegstad.quotamonitor` (uses the signing team's prefix) |
 | `Widget/Info.plist` extension point | `com.apple.widgetkit-extension` |
 
 `project.yml` is the XcodeGen project specification. If it changes, regenerate the
@@ -79,7 +93,9 @@ Codex executable discovery is in `App/CodexReader.swift`. The standard installat
 paths include `/usr/local/bin/codex` and `/opt/homebrew/bin/codex`.
 
 WidgetKit controls desktop rendering and refresh scheduling; the desktop widget
-can update later than the menu-bar app. Select full-color widget appearance in
+can update later than the menu-bar app. The app requests a timeline reload after
+each refresh, and the widget requests a fresh snapshot after five minutes rather
+than scheduling an hour of entries with the same quota. Select full-color widget appearance in
 macOS settings to keep the quota status colors visible.
 
 ## Ubuntu / GNOME

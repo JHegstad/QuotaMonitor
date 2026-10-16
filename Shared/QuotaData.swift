@@ -10,8 +10,27 @@ struct QuotaData: Codable {
     var fiveHourReset: Date? = nil
     var weeklyReset: Date? = nil
 
-    static let group = "group.no.hegstad.quotamonitor"
+    // Resolve the same team-qualified identifier that Xcode signs into both
+    // targets. Ad hoc signing cannot authorize a shared sandbox container.
+    static var group: String {
+        Bundle.main.object(forInfoDictionaryKey: "QuotaAppGroup") as? String
+            ?? "QRV2VJGW67.no.hegstad.quotamonitor"
+    }
     static let key = "quota-data-v1"
+
+    /// Called only by the nonsandboxed app; the widget must never read the old,
+    /// unprovisioned group. Keep an existing snapshot in the new group intact.
+    static func migrateLegacyData() {
+        let legacyGroup = "group.no.hegstad.quotamonitor"
+        guard let defaults = UserDefaults(suiteName: group),
+              defaults.data(forKey: key) == nil,
+              let container = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: legacyGroup),
+              let contents = try? Data(contentsOf: container.appendingPathComponent("Library/Preferences/\(legacyGroup).plist")),
+              let values = try? PropertyListSerialization.propertyList(from: contents, format: nil) as? [String: Any],
+              let raw = values[key] as? Data,
+              (try? JSONDecoder().decode(QuotaData.self, from: raw)) != nil else { return }
+        defaults.set(raw, forKey: key)
+    }
 
     init(
         lastUpdated: Date? = nil,

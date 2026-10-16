@@ -14,10 +14,11 @@ struct QuotaProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<QuotaEntry>) -> Void) {
         let now = Date()
         let data = QuotaData.load()
-        let entries = (0..<12).map { i in
-            QuotaEntry(date: now.addingTimeInterval(TimeInterval(i * 300)), quota: data)
-        }
-        completion(Timeline(entries: entries, policy: .atEnd))
+        // Future entries would repeat this snapshot without reading new data.
+        // Ask WidgetKit to fetch a fresh snapshot instead; app refreshes also
+        // explicitly reload the timeline after saving.
+        let entry = QuotaEntry(date: now, quota: data)
+        completion(Timeline(entries: [entry], policy: .after(now.addingTimeInterval(300))))
     }
 }
 
